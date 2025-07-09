@@ -137,9 +137,10 @@ build_combinations() {
 
 cache_base_bootimg() {
   ( # enter subshell
+    cd "$dir/Kitchen/" || exit 1
+    rm -f premade-mkbootimg/*  # Clean up previous artifacts
     cd "$dir/Kitchen/bin/$HOST_ARCH" || exit 1
-    rm -f ../../premade-mkbootimg/*  # Clean up previous artifacts
-    ./unpackbootimg -i ../boot/"$CONFIG_BASE_BOOTIMG" -o ../premade-mkbootimg > /dev/null
+    ./unpackbootimg -i ../../boot/"$CONFIG_BASE_BOOTIMG" -o ../../premade-mkbootimg > /dev/null
   ) # exit subshell
   [ -d "$dir/Kitchen/premade-mkbootimg" ] || { error "Directory not found: $dir/Kitchen/premade-mkbootimg" >&2; exit 1; }
 }
